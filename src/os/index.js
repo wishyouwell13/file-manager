@@ -1,10 +1,17 @@
 import os from 'os';
+import { InputError } from '../utils/errors.js';
+import { validateArguments } from '../utils/helpers.js';
 
-export const getOsInfo = (arg) => {
+export const getOsInfo = (args) => {
+  validateArguments(args, {
+    size: 1,
+  });
+  const command = normalizeParam(args[0]);
+
   const commandsObj = {
-    EOL: () => os.EOL,
+    EOL: () => JSON.stringify(os.EOL),
     homedir: () => os.homedir(),
-    architecture: () => os.arch(),
+    arch: () => os.arch(),
     username: () => {
       const { username } = os.userInfo();
       return username;
@@ -15,11 +22,11 @@ export const getOsInfo = (arg) => {
     },
     cpus: () => {
       const cores = os.cpus();
-      const result = {
-        'amount of CPUS': cores.length,
-      };
       // amount of CPUS
       // model and clock rate (in GHz) for each of them
+      const result = {
+        'Amount of CPUS': cores.length,
+      };
       cores.forEach((core, idx) => {
         result[`core ${idx}`] = {
           model: core.model,
@@ -30,15 +37,25 @@ export const getOsInfo = (arg) => {
       return result;
     },
   };
-  const osInfo = commandsObj[arg];
-  return osInfo();
+  if (!(command in commandsObj)) {
+    throw new InputError();
+  }
+  const osInfo = commandsObj[command];
+  const info = osInfo();
+  // return result;
+  console.log(info);
 };
-// function normalizeParam(str) {
-//   const param = str.replace(/--(\w+)/, (_, command) =>
-//     command === 'architecture' ? 'arch' : command,
-//   );
 
-//   return param;
-// }
+function normalizeParam(str) {
+  if (!str.startsWith('--')) {
+    throw new InputError();
+  }
+
+  const param = str.replace(/--(\w+)/, (_, command) =>
+    command === 'architecture' ? 'arch' : command,
+  );
+
+  return param;
+}
 
 // console.log(getOsInfo('homedir'));
