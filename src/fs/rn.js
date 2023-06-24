@@ -2,7 +2,6 @@ import { rename as fsRename } from 'fs/promises';
 
 import { OperationError } from '../utils/errors.js';
 import { validateArguments, normalizePath } from '../utils/helpers.js';
-import { getState } from '../store/index.js';
 
 export const rn = async (args) => {
   validateArguments(args, {

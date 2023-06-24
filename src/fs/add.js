@@ -1,10 +1,10 @@
 import { writeFile } from 'fs/promises';
 
 import { OperationError } from '../utils/errors.js';
-import { validateArguments } from '../utils/helpers.js';
+import { validateArguments, normalizePath } from '../utils/helpers.js';
 
-export const add = async (path) => {
-  validateArguments(path, {
+export const add = async (args) => {
+  validateArguments(args, {
     size: 1,
   });
 
