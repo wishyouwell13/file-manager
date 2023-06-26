@@ -1,4 +1,3 @@
-import { pipeline } from 'stream/promises';
 import { createReadStream, createWriteStream } from 'fs';
 
 import { OperationError } from '../utils/errors.js';
@@ -10,13 +9,15 @@ export const cat = async (args) => {
   });
 
   const filePath = normalizePath(args[0]);
+  const readableStream = createReadStream(filePath);
+
   try {
-    const readable = createReadStream(filePath);
-    const { stdout } = process;
-    await pipeline(readable, stdout, { end: false });
-  } catch (err) {
+    await new Promise((resolve, reject) => {
+      readableStream.on('error', (error) => reject(error));
+      readableStream.on('end', () => resolve());
+      readableStream.on('data', (chunk) => console.log(chunk.toString()));
+    });
+  } catch {
     throw new OperationError();
   }
 };
-
-// await read();
