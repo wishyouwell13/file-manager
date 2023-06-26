@@ -7,8 +7,6 @@ export function showGreetingMessage(name) {
 }
 
 export function validateArguments(data = [], options = []) {
-  console.log(data.length);
-  // console.log(options.size);
   if (data.length !== options.size && data.length > options.maxSize) {
     throw new InputError();
   }
@@ -22,12 +20,10 @@ export function parseArguments(str) {
     .split(re)
     .map((arg) => arg.replace(/"/g, ''));
 
-  console.log(res);
   return res;
 }
 
 export function normalizePath(src) {
-  // console.log(src);
   src = src.trim();
   if (src === '~') {
     const home = getState('homedir');

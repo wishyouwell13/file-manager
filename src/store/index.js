@@ -1,5 +1,5 @@
 // built-in modules
-import { homedir } from 'node:os';
+import { homedir } from 'os';
 // modules
 import { getOsInfo } from '../os/index.js';
 import { cd, ls, up } from '../navigation/index.js';
@@ -11,15 +11,13 @@ import { InputError } from '../utils/errors.js';
 
 // state
 const AppState = {
-  // currentDir: homedir(),
-  // homedir: homedir(),
-  homedir: process.cwd(),
-  currentDir: process.cwd(),
+  currentDir: homedir(),
+  homedir: homedir(),
 };
 
 // list of actions
 const ListActions = {
-  // '.exit': exit,
+  '.exit': () => process.exit(0),
   add,
   mv,
   cd,
@@ -35,7 +33,7 @@ const ListActions = {
   os: getOsInfo,
 };
 
-// Function execute action
+// Function execute action and handle errors
 export const dispatch = async (action, payload) => {
   try {
     if (!(action in ListActions)) {
@@ -50,7 +48,8 @@ export const dispatch = async (action, payload) => {
     console.error(err.message);
   }
 };
-// Function changes state property
+
+// Function to change state property
 export const commit = (prop, payload) => {
   AppState[prop] = payload;
 };

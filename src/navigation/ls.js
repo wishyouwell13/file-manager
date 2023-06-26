@@ -26,7 +26,7 @@ export default async function ls(args) {
 
 function sortFs(entryA, entryB) {
   if (entryA.type === entryB.type) {
-    return entryA.name.localeCompare(entryB.name);
+    return entryA.name.localeCompare(entryB.name, false, { numeric: true });
   }
 
   return entryA.type === 'directory' ? -1 : 1;
