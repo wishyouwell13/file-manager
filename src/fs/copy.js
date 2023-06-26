@@ -1,23 +1,25 @@
-import { cp as nodeCp } from 'fs/promises';
-import { join } from 'path';
-
+import { createReadStream, createWriteStream } from 'fs';
+import { pipeline } from 'stream/promises';
+// helpers
 import { OperationError } from '../utils/errors.js';
-import { validateArguments } from '../utils/helpers.js';
-import { getState } from '../store/index.js';
+import { validateArguments, normalizePath } from '../utils/helpers.js';
+
+// No point to check is file exists,
+// because terminal command 'cp' doesn't check it.
 
 export const copy = async (args) => {
   validateArguments(args, {
     size: 2,
   });
   const [src, dest] = args;
-  const currentDir = getState('currentDir');
+  const filePath = normalizePath(src);
+  const newFilePath = normalizePath(dest);
+
+  const readable = createReadStream(filePath);
+  const writable = createWriteStream(newFilePath);
 
   try {
-    await nodeCp(join(currentDir, src), join(currentDir, dest), {
-      recursive: true,
-      force: false,
-      errorOnExist: true,
-    });
+    await pipeline(readable, writable);
   } catch {
     throw new OperationError();
   }
