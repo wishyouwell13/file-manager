@@ -3,7 +3,7 @@ import { rename as fsRename } from 'fs/promises';
 import { OperationError } from '../utils/errors.js';
 import { validateArguments, normalizePath } from '../utils/helpers.js';
 
-export const rn = async (args) => {
+export const rename = async (args) => {
   validateArguments(args, {
     size: 2,
   });

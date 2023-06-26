@@ -1,7 +1,6 @@
 export { add } from './add.js';
-export { cp } from './copy.js';
+export { copy as cp } from './copy.js';
 export { cat } from './cat.js';
-export { rn } from './rn.js';
+export { rename as rn } from './rename.js';
 export { remove as rm } from './remove.js';
-
-// export { createDir } from './createDir.js';
+export { move as mv } from './move.js';

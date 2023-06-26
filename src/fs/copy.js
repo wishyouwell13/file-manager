@@ -5,7 +5,7 @@ import { OperationError } from '../utils/errors.js';
 import { validateArguments } from '../utils/helpers.js';
 import { getState } from '../store/index.js';
 
-export const cp = async (args) => {
+export const copy = async (args) => {
   validateArguments(args, {
     size: 2,
   });

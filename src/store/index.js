@@ -3,7 +3,9 @@ import { homedir } from 'node:os';
 // modules
 import { getOsInfo } from '../os/index.js';
 import { cd, ls, up } from '../navigation/index.js';
-import { add, cp, cat, rn, rm } from '../fs/index.js';
+import { add, cp, cat, rn, rm, mv } from '../fs/index.js';
+import { compress, decompress } from '../zip/index.js';
+import { hash } from '../hash/index.js';
 // utils
 import { InputError } from '../utils/errors.js';
 
@@ -19,6 +21,7 @@ const AppState = {
 const ListActions = {
   // '.exit': exit,
   add,
+  mv,
   cd,
   ls,
   up,
@@ -26,6 +29,9 @@ const ListActions = {
   cat,
   rn,
   rm,
+  hash,
+  compress,
+  decompress,
   os: getOsInfo,
 };
 
