@@ -7,7 +7,7 @@ export function showGreetingMessage(name) {
 }
 
 export function validateArguments(data = [], options = []) {
-  // console.log(data.length);
+  console.log(data.length);
   // console.log(options.size);
   if (data.length !== options.size && data.length > options.maxSize) {
     throw new InputError();
@@ -15,11 +15,15 @@ export function validateArguments(data = [], options = []) {
 }
 
 export function parseArguments(str) {
-  const re = /\s+(?![\w:\\/]+(?="))/;
-  return str
+  const re = /\s+(?![\w:\\/ ]+(?=["]))/;
+
+  const res = str
     .trim()
     .split(re)
     .map((arg) => arg.replace(/"/g, ''));
+
+  console.log(res);
+  return res;
 }
 
 export function normalizePath(src) {
