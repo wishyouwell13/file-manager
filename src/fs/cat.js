@@ -1,4 +1,4 @@
-import { createReadStream, createWriteStream } from 'fs';
+import { createReadStream } from 'fs';
 
 import { OperationError } from '../utils/errors.js';
 import { validateArguments, normalizePath } from '../utils/helpers.js';

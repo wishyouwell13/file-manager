@@ -1,3 +1,3 @@
-export { default as cd } from './cd.js';
-export { default as ls } from './ls.js';
-export { default as up } from './up.js';
+export { changeDirectory as cd } from './changeDirectory.js';
+export { list as ls } from './list.js';
+export { up } from './up.js';

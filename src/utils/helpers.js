@@ -24,7 +24,6 @@ export function parseArguments(str) {
 }
 
 export function normalizePath(src) {
-  src = src.trim();
   if (src === '~') {
     const home = getState('homedir');
     return home;

@@ -4,7 +4,7 @@ import { validateArguments } from '../utils/helpers.js';
 import { OperationError } from '../utils/errors.js';
 import { normalizePath } from '../utils/helpers.js';
 
-export default async function ls(args) {
+export const list = async (args) => {
   // can be zero or one arguments
   validateArguments(args, {
     size: 0,
@@ -22,7 +22,7 @@ export default async function ls(args) {
   } catch {
     throw new OperationError();
   }
-}
+};
 
 function sortFs(entryA, entryB) {
   if (entryA.type === entryB.type) {

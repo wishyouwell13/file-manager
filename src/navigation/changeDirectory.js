@@ -6,7 +6,7 @@ import { normalizePath } from '../utils/helpers.js';
 
 import { commit } from '../store/index.js';
 
-export default function cd(path) {
+export const changeDirectory = (path) => {
   validateArguments(path, {
     size: 1,
   });
@@ -19,4 +19,4 @@ export default function cd(path) {
   } catch (err) {
     throw new OperationError();
   }
-}
+};

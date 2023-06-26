@@ -1,5 +1,5 @@
 // helpers
-import { validateArguments, normalizePath } from '../utils/helpers.js';
+import { validateArguments } from '../utils/helpers.js';
 
 // fs modules
 import { cp, rm } from './index.js';

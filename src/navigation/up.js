@@ -4,7 +4,7 @@ import { normalizePath } from '../utils/helpers.js';
 // store
 import { commit } from '../store/index.js';
 
-export default function up(args = []) {
+export const up = (args = []) => {
   validateArguments(args, {
     size: 0,
     maxSize: 0,
@@ -12,4 +12,4 @@ export default function up(args = []) {
 
   const newPath = normalizePath('..');
   commit('currentDir', newPath);
-}
+};
