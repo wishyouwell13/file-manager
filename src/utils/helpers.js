@@ -1,5 +1,3 @@
-// import {InputError}
-
 import { InputError } from './errors.js';
 import { join, isAbsolute, resolve } from 'path';
 import { getState } from '../store/index.js';
@@ -7,11 +5,6 @@ import { getState } from '../store/index.js';
 export function showGreetingMessage(name) {
   console.dir(`Welcome to the File Manager, ${name}!`);
 }
-
-/**
- *
- * @param {Array<string>} options
- */
 
 export function validateArguments(data = [], options = []) {
   // console.log(data.length);
@@ -21,16 +14,17 @@ export function validateArguments(data = [], options = []) {
   }
 }
 
-const config = [
-  {
-    commmands: ['cd'],
-    options: {
-      size: 2,
-    },
-  },
-];
+export function parseArguments(str) {
+  const re = /\s+(?![\w:\\/]+(?="))/;
+  return str
+    .trim()
+    .split(re)
+    .map((arg) => arg.replace(/"/g, ''));
+}
 
 export function normalizePath(src) {
+  // console.log(src);
+  src = src.trim();
   if (src === '~') {
     const home = getState('homedir');
     return home;

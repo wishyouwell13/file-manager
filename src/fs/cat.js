@@ -1,4 +1,7 @@
 import { readFile } from 'fs/promises';
+import { pipeline } from 'stream/promises';
+import { createReadStream, createWriteStream } from 'fs';
+import { Writable } from 'node:stream';
 
 import { OperationError } from '../utils/errors.js';
 import { validateArguments, normalizePath } from '../utils/helpers.js';
@@ -10,10 +13,7 @@ export const cat = async (args) => {
 
   const filePath = normalizePath(args[0]);
   try {
-    const contents = await readFile(filePath, {
-      encoding: 'utf8',
-    });
-    console.log(contents);
+    await pipeline(createReadStream(filePath), process.stdout, { end: false });
   } catch (err) {
     throw new OperationError();
   }
