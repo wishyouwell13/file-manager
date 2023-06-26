@@ -6,8 +6,9 @@ export function showGreetingMessage(name) {
   console.dir(`Welcome to the File Manager, ${name}!`);
 }
 
-export function validateArguments(data = [], options = []) {
-  if (data.length !== options.size && data.length > options.maxSize) {
+export function validateArguments(data = [], options = {}) {
+  console.log(data.length > options.maxSize);
+  if (data.length !== options.size && (!options.maxSize || data.length > options.maxSize)) {
     throw new InputError();
   }
 }
