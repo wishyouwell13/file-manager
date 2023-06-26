@@ -13,12 +13,12 @@ export function validateArguments(data = [], options = {}) {
 }
 
 export function parseArguments(str) {
-  const re = /\s+(?![\w:\\/ ]+(?=["]))/;
+  const re = /\s+(?![\w\s:\\/ ]+(?=["']))/;
 
   const res = str
     .trim()
     .split(re)
-    .map((arg) => arg.replace(/"/g, ''));
+    .map((arg) => arg.replace(/["']([^"']+)["']/g, '$1'));
 
   return res;
 }
