@@ -7,7 +7,6 @@ export function showGreetingMessage(name) {
 }
 
 export function validateArguments(data = [], options = {}) {
-  console.log(data.length > options.maxSize);
   if (data.length !== options.size && (!options.maxSize || data.length > options.maxSize)) {
     throw new InputError();
   }
